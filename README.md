@@ -9,6 +9,8 @@ A Docker Image is available as:
 lukehendrick/connect-service-go
 ```
 
+And is available on Docker Hub [here](https://hub.docker.com/r/lukehendrick/connect-service-go)
+
 ## Usage
 
 Start the container with:
