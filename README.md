@@ -23,7 +23,7 @@ Where `$HOST_PORT` is the local port you want to expose
 When creating a new AWS Connect Client, pass `https://localhost:$HOST_PORT` as the endpoint:
 ```javascript
     import AWS from 'aws-sdk';
-    const connect = new AWS.Connect({region: "us-east-1", endpoint: "https://localhost:9000"})
+    const connect = new AWS.Connect({region: "us-east-1", endpoint: "http://localhost:9000"})
 ```
 
 Please note, you must pass the region to the Config object in order to proceed
