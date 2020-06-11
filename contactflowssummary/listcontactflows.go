@@ -1,9 +1,9 @@
 package contactflowssummary
 
 import (
-	"encoding/json"
-	"fmt"
 	"net/http"
+
+	"github.com/lukehendrick/connectService/util"
 )
 
 // ContactFlowSummaryData is the response structure to the api call
@@ -33,14 +33,5 @@ func ListContactFlows(w http.ResponseWriter, r *http.Request) {
 			},
 		},
 	}
-	fmt.Printf("RECEIVED %+v", r)
-	json, err := json.Marshal(instance)
-	fmt.Printf("RECEIVED %v", "IT")
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Access-Control-Expose-Headers", "x-amzn-RequestId,x-amzn-ErrorType,x-amzn-ErrorMessage,Date")
-	w.Write([]byte(json))
+	util.MarshalAndWriteResponse(w, r, instance)
 }
