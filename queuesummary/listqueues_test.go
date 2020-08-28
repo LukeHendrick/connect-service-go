@@ -1,4 +1,4 @@
-package contactflowssummary
+package queuesummary
 
 import (
 	"fmt"
@@ -7,18 +7,18 @@ import (
 	"testing"
 )
 
-func TestListContactFlows(t *testing.T) {
+func TestListQueues(t *testing.T) {
 	t.Run("Sends the request and receives the response", func(t *testing.T) {
-		request := newListContactFlowsRequest()
+		request := newListQueuesRequest()
 		response := httptest.NewRecorder()
-		ListContactFlows(response, request)
+		ListQueues(response, request)
 		fmt.Printf(response.Body.String())
 		assertStatus(t, response.Code, 200)
 	})
 }
 
-func newListContactFlowsRequest() *http.Request {
-	req, _ := http.NewRequest(http.MethodGet, "/contact-flows-summary/abc", nil)
+func newListQueuesRequest() *http.Request {
+	req, _ := http.NewRequest(http.MethodGet, "/queues-summary/abc", nil)
 	return req
 }
 
