@@ -27,7 +27,16 @@ type ContactFlowSummary struct {
 func ListContactFlows(w http.ResponseWriter, r *http.Request) {
 	instanceID := chi.URLParam(r, "instanceID")
 	contactFlows := generateContactFlows(instanceID)
-	util.MarshalAndWriteResponse(w, r, contactFlows)
+	contactFlowSummary := generateContactFlowSummary(contactFlows)
+	util.MarshalAndWriteResponse(w, r, contactFlowSummary)
+}
+
+func generateContactFlowSummary(contactFlows []ContactFlowSummary) (contactFlowSummary ContactFlowSummaryData) {
+	contactFlowSummary = ContactFlowSummaryData{
+		NextToken:              "aaa",
+		ContactFlowSummaryList: contactFlows,
+	}
+	return
 }
 
 // {
