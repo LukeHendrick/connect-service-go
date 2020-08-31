@@ -47,7 +47,7 @@ func generateContactFlows(instanceID string) (contactFlows []ContactFlowSummary)
 
 func generateContactFlow(instanceID string) (contactFlow ContactFlowSummary) {
 	id, arn := generateContactFlowARNs(instanceID)
-	name := util.GenerateName()
+	name := util.GenerateName(10)
 	return ContactFlowSummary{
 		Id:              id,
 		Arn:             arn,
