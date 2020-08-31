@@ -26,7 +26,16 @@ func ListQueues(w http.ResponseWriter, r *http.Request) {
 	instanceID := chi.URLParam(r, "instanceID")
 	fmt.Printf(instanceID)
 	queues := generateQueues(instanceID)
-	util.MarshalAndWriteResponse(w, r, queues)
+	queueSummary := generateQueueSummary(queues)
+	util.MarshalAndWriteResponse(w, r, queueSummary)
+}
+
+func generateQueueSummary(queues []QueueSummary) (queueSummary QueueSummaryData) {
+	queueSummary = QueueSummaryData{
+		NextToken:        "",
+		QueueSummaryList: queues,
+	}
+	return
 }
 
 func generateQueues(instanceID string) (queues []QueueSummary) {
