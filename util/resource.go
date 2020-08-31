@@ -2,9 +2,9 @@ package util
 
 import (
 	"fmt"
+	"math/rand"
 
 	"github.com/google/uuid"
-	"github.com/tjarratt/babble"
 )
 
 // FormatARN receives the instanceID, resourceType, and GUID returning an ARN
@@ -17,8 +17,15 @@ func GenerateID() string {
 	return uuid.New().String()
 }
 
-func GenerateName() string {
-	babbler := babble.NewBabbler()
-	babbler.Separator = " "
-	return babbler.Babble()
+// GenerateName generates a random string for resource names
+func GenerateName(len int) string {
+	bytes := make([]byte, len)
+	for i := 0; i < len; i++ {
+		bytes[i] = byte(randomInt(65, 90))
+	}
+	return string(bytes)
+}
+
+func randomInt(min, max int) int {
+	return min + rand.Intn(max-min)
 }

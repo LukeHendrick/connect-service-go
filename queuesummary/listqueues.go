@@ -40,7 +40,7 @@ func generateQueues(instanceID string) (queues []QueueSummary) {
 
 func generateQueue(instanceID string) (queue QueueSummary) {
 	id, arn := generateQueueARNs(instanceID)
-	name := util.GenerateName()
+	name := util.GenerateName(10)
 	return QueueSummary{
 		Id:        id,
 		Arn:       arn,
