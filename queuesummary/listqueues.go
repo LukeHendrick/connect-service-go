@@ -32,7 +32,7 @@ func ListQueues(w http.ResponseWriter, r *http.Request) {
 
 func generateQueueSummary(queues []QueueSummary) (queueSummary QueueSummaryData) {
 	queueSummary = QueueSummaryData{
-		NextToken:        "aaa",
+		NextToken:        "",
 		QueueSummaryList: queues,
 	}
 	return

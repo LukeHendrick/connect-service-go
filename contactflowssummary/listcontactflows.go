@@ -33,7 +33,7 @@ func ListContactFlows(w http.ResponseWriter, r *http.Request) {
 
 func generateContactFlowSummary(contactFlows []ContactFlowSummary) (contactFlowSummary ContactFlowSummaryData) {
 	contactFlowSummary = ContactFlowSummaryData{
-		NextToken:              "aaa",
+		NextToken:              "",
 		ContactFlowSummaryList: contactFlows,
 	}
 	return
