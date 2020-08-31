@@ -8,6 +8,8 @@ import (
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/render"
 	"github.com/lukehendrick/connectService/contactflowssummary"
+	"github.com/lukehendrick/connectService/queuesummary"
+	"github.com/lukehendrick/connectService/users"
 )
 
 func routes() *chi.Mux {
@@ -22,6 +24,8 @@ func routes() *chi.Mux {
 
 	router.Route("/", func(r chi.Router) {
 		r.Mount("/contact-flows-summary", contactflowssummary.Routes())
+		r.Mount("/users", users.Routes())
+		r.Mount("/queues-summary", queuesummary.Routes())
 		//...additional routes here
 	})
 

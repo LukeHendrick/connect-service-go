@@ -1,6 +1,7 @@
 package contactflowssummary
 
 import (
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -11,6 +12,7 @@ func TestListContactFlows(t *testing.T) {
 		request := newListContactFlowsRequest()
 		response := httptest.NewRecorder()
 		ListContactFlows(response, request)
+		fmt.Printf(response.Body.String())
 		assertStatus(t, response.Code, 200)
 	})
 }

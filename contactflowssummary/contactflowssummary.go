@@ -7,6 +7,6 @@ import (
 // Routes for the ContactFlow Operations
 func Routes() *chi.Mux {
 	router := chi.NewRouter()
-	router.Get("/{instanceId}", ListContactFlows)
+	router.Get("/{instanceID}", ListContactFlows)
 	return router
 }

@@ -1,10 +1,13 @@
 package contactflowssummary
 
 import (
-	"encoding/json"
-	"fmt"
 	"net/http"
+
+	"github.com/go-chi/chi"
+	"github.com/lukehendrick/connectService/util"
 )
+
+const NumberOfFlows = 25
 
 // ContactFlowSummaryData is the response structure to the api call
 type ContactFlowSummaryData struct {
@@ -22,25 +25,39 @@ type ContactFlowSummary struct {
 
 // ListContactFlows returns a list of random contact flow Arns and Names
 func ListContactFlows(w http.ResponseWriter, r *http.Request) {
-	instance := ContactFlowSummaryData{
-		NextToken: "aaa",
-		ContactFlowSummaryList: []ContactFlowSummary{
-			{
-				Id:              "abc23",
-				Arn:             "arn:aws",
-				Name:            "Abc 123",
-				ContactFlowType: "STANDARD",
-			},
-		},
+	instanceID := chi.URLParam(r, "instanceID")
+	contactFlows := generateContactFlows(instanceID)
+	util.MarshalAndWriteResponse(w, r, contactFlows)
+}
+
+// {
+// 	Id:              "abc23",
+// 	Arn:             "arn:aws",
+// 	Name:            "Abc 123",
+// 	ContactFlowType: "STANDARD",
+// },
+func generateContactFlows(instanceID string) (contactFlows []ContactFlowSummary) {
+	contactFlows = []ContactFlowSummary{}
+	for i := 0; i < NumberOfFlows; i++ {
+		contactFlow := generateContactFlow(instanceID)
+		contactFlows = append(contactFlows, contactFlow)
 	}
-	fmt.Printf("RECEIVED %+v", r)
-	json, err := json.Marshal(instance)
-	fmt.Printf("RECEIVED %v", "IT")
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+	return
+}
+
+func generateContactFlow(instanceID string) (contactFlow ContactFlowSummary) {
+	id, arn := generateContactFlowARNs(instanceID)
+	name := util.GenerateName(10)
+	return ContactFlowSummary{
+		Id:              id,
+		Arn:             arn,
+		Name:            name,
+		ContactFlowType: "STANDARD",
 	}
-	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Access-Control-Expose-Headers", "x-amzn-RequestId,x-amzn-ErrorType,x-amzn-ErrorMessage,Date")
-	w.Write([]byte(json))
+}
+
+func generateContactFlowARNs(instanceID string) (id string, arn string) {
+	id = util.GenerateID()
+	arn = util.FormatARN(instanceID, "contactflow", id)
+	return
 }
